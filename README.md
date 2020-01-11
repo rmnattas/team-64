@@ -1,30 +1,29 @@
-# Ready-To-Deploy Django, gunicorn, NGINX, Docker Application
 
-## Credit
-This repository is modified from the code created by [Watt Iamsuri](https://github.com/wiamsuri/django-gunicorn-nginx-docker).
+Basic Django Homepage Tutorial
 
-## Getting Started
-For Ubuntu (remember to login/logout after running command)
-```
-sudo curl -sSL https://get.docker.com/ | sh
-sudo usermod -a -G docker $(whoami)
-sudo service docker start
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
+CMPUT 401 Hackathon Fall 2019 Semester
 
-In the root level of this repository, create a file named `django.env` and add environment variables. For example:
-```
-MYSITE_SECRET_KEY= put your django app secret key here
-DEBUG=True
-```
+Slides for Google Drive: https://docs.google.com/presentation/d/1307cdHyD-2o8MMwxNkpjVfLaFVp8VZMdcZbNjNATtOA/edit?usp=sharing
 
-Build code with docker compose
-```
-docker-compose build
-```
+Useful Links to build off of this:
 
-Run the built container
-```
-docker-compose up -d
-```
+Django Tutorial Youtube:
+  https://www.youtube.com/watch?v=UmljXZIypDc
+  
+Django Tutorial Text (Highly Recommended):
+  https://tutorial.djangogirls.org/en/django_start_project/
+
+Django Models:
+  https://docs.djangoproject.com/en/2.2/topics/db/models/
+
+Django Class based views:
+  https://docs.djangoproject.com/en/2.2/topics/class-based-views/
+
+Django POST Request (Sending information from Front-end to Back-end):
+  https://www.youtube.com/watch?v=KRanyK02uO8
+
+Django RESTful API:
+  https://wsvincent.com/official-django-rest-framework-tutorial-beginners-guide/
+
+
+Made by Marissa Snihur & Ivan Tse
