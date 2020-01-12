@@ -96,6 +96,17 @@ html, body, #map {
     <div id='map'></div>
 
 	<script>
+    var LeafIcon = L.Icon.extend({
+      options: {
+          iconSize:     [38, 95],
+      }
+    });
+    var greenIcon = new LeafIcon({iconUrl: '% static plane-green.png'}),
+      redIcon = new LeafIcon({iconUrl: 'plane-red.png'}),
+      blueIcon = new LeafIcon({iconUrl: 'plane-blue.png'});
+
+    var iconList = [redIcon, greenIcon, blueIcon];
+
     var counter = 0;
     var colorList = ["red","green","blue"];
     var signList = ["AC8514", "WS3170", "WS3181"];
@@ -113,7 +124,22 @@ html, body, #map {
     function onLocationFound(e) {
       var radius = e.accuracy / 2;
       L.marker(e.latlng).addTo(map);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        var obj = JSON.parse(this.responseText)
+            console.log(this.responseText);
+            pinForPlane(obj.plane0)
+            pinForPlane(obj.plane1)
+            pinForPlane(obj.plane2)
+        }
+      }
+      var apiURL = "api/?lat=" + (e.latlng.lat).toString() + "&lon=" + (e.latlng.lng).toString()
+      console.log(apiURL)
+      xhttp.open("GET", apiURL, true);
+      xhttp.send();
     }
+
 
     function onLocationError(e) {
       alert(e.message);
@@ -122,7 +148,7 @@ html, body, #map {
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
 
-    map.locate({setView: true, maxZoom: 7});
+    map.locate({setView: true, maxZoom: 5});
 
     map.on('click', onMapClick);
     var popup = L.popup();
@@ -130,12 +156,12 @@ html, body, #map {
     function onMapClick(e) {
       var marker = L.marker(e.latlng).addTo(map);
       map.panTo(e.latlng);
-      addPlane();
-      counter += 1;
+      // addPlane();
+     
     }
 
 
-    function addPlane() {
+    function addPlane(plane) {
       var table = document.getElementById("planeTable");
       var newPlane = table.insertRow(-1);
 
@@ -144,9 +170,19 @@ html, body, #map {
       var distance = newPlane.insertCell(1);
       var origin = newPlane.insertCell(2);
 
-      sign.innerHTML = signList[counter];
-      distance.innerHTML = distanceList[counter];
-      origin.innerHTML = "Canada";
+      sign.innerHTML = plane.callsign;
+      distance.innerHTML = plane.distance_km.toFixed(2);
+      origin.innerHTML = plane.origin;
+    }
+
+    function pinForPlane(plane) {
+        console.log("Printing plane")
+        var lat1 = plane.latitude;
+        var long1 = plane.longitude;
+        var latlng = L.latLng(lat1, long1);
+        L.marker(latlng, {icon: iconList[counter]}).addTo(map);
+        addPlane(plane);
+        counter += 1;
     }
 
   </script>
@@ -155,24 +191,9 @@ html, body, #map {
   <table id="planeTable" align="center" style="width: 70%;">
     <tr>
       <th>Call Sign</th>
-      <th>Distance From Pin</th>
+      <th>Distance From Pin (Km)</th>
       <th>Country of Origin</th>
     </tr>
-    <!-- <tr id="plane1" class=red>
-      <td id="sign1">test</td>
-      <td id="dist1"></td>
-      <td id="origin1"></td>
-    </tr>
-    <tr id="plane2" class=blue>
-      <td id="sign2">test2</td>
-      <td id="dist1"></td>
-      <td id="origin1"></td>
-    </tr>
-    <tr id="plane3" class=green>
-      <td id="sign3">test3</td>
-      <td id="dist1"></td>
-      <td id="origin1"></td>
-    </tr> -->
   </table>
 </div>
 <div class="column right"></div>
