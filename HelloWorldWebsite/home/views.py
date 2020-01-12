@@ -33,6 +33,17 @@ class Home(generic.DetailView):
 
 
 
+class API(generic.DetailView):
+    #model = Counter
+    #template_name = "home/index.html"
+
+    def get(self, request, *args, **kwargs):
+        lat = float(request.GET["lat"])
+        lon = float(request.GET["lon"])
+        json = getPlanes(lat, lon)
+
+        return HttpResponse(json, content_type='application/json')
+
 def getPlanes(latitude, longitude):
     bbox = [latitude - 5, latitude + 5, longitude - 5, longitude + 5]
     s = OpenSkyApi().get_states(bbox=bbox)
