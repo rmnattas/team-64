@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.views.generic import TemplateView
+
+
 urlpatterns = [
     path('', views.Home.as_view(), name='homepage'),
-]
+    path('map.html', TemplateView.as_view(template_name="map.html")),
+    ]

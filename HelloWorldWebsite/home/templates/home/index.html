@@ -1,21 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Quick Start - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+		integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+		crossorigin=""></script>
+
+
+
+</head>
+
+<body onload="getLocation()">
+  <style>
+
+  .blue{
+    background-color: #81D4FA;
+  }
+  .green{
+    background-color: #A5D6A7;
+  }
+  .red{
+    background-color: #EF9A9A;
+  }
+
+  .center{
+    display: block;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    border-radius: 10px;
+  }
+  .center-table{
+    display:block;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-radius: 10px;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+  }  
+
+
+.column {
+  float: left;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+.left, .right {
+  width: 25%;
+}
+
+.middle {
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+  </style>
+
+
+
+<div class = row>
+  <div class="column left"></div>
+  <div class="column middle">
+    <div id="mapid" style="width: 600px; height: 400px;"></div>
+
+
+    <script>
+      var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11'
+      }).addTo(mymap);
+
+      mymap.on('click', onMapClick);
+
+      
+      function onMapClick(e) {
+        alert("You clicked the map at " + e.latlng);
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+      function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude;
+      }
+
+    </script>
+
+  <table align="center" style="width: 70%;">
+    <tr>
+      <th>Call Sign</th>
+      <th>Distance From Pin</th>
+      <th>Country of Origin</th>
+    </tr>
+    <tr class=red>
+      <td id="sign1">test</td>
+      <td id="dist1"></td>
+      <td id="origin1"></td>
+    </tr>
+    <tr class=blue>
+      <td id="sign2">test2</td>
+      <td id="dist1"></td>
+      <td id="origin1"></td>
+    </tr>
+    <tr class=green>
+      <td id="sign3">test3</td>
+      <td id="dist1"></td>
+      <td id="origin1"></td>
+    </tr>
+  </table>
+</div>
+<div class="column right"></div>
+</body>
+
+
+
+</html>
+
+
+<!-- {% load static %}
+
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
 
-<!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+</head> -->
 
-</head>
-
-<body>
-
+<!-- <body> -->
+<!-- 
   <style>
   .colour {
     color: #FF0000;
     background-color: #000000;
   }
-
+  .center{
+    display: block;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    border-radius: 10px;
+  }
   .wrapper .button-css {
     display: block;
     margin-left: auto;
@@ -36,24 +202,52 @@
   }
   </style>
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <form method="POST" name="submit-form">
   {% csrf_token %}
-  <div class="wrapper">
-    <h1 class="helloworld-text">Hello World!</h1>
-    <h1 class="helloworld-text">Count: {{our_counter.count}}</h1>
-    <button id="button" class="btn button-css waves-effect" onclick="changeColor();">Submit</button>
+  <div class="container section">
+    <img class=center src="{% static 'images/dummy.png' %}"/>
   </div>
 </form>
-
+<div class="container section">
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="000.0000" id="min_lat" type="number" class="validate">
+          <label for="min_lat">Minimum Latitude</label>
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="000.0000" id="max_lat" type="number" class="validate">
+          <label for="max_lat">Maximum Latitude</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="000.0000" id="min_long" type="number" class="validate">
+          <label for="min_long">Minimum Longitude</label>
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="000.0000" id="max_long" type="number" class="validate">
+          <label for="max_long">Maximum Longitude</label>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+      
 <script>
   function changeColor(){
     console.log("here")
     var button = document.getElementById('button');
     document.body.classList.toggle('colour')
   }
-</script>
-
-
-</body>
+</script> --> 
+<!-- </body> -->

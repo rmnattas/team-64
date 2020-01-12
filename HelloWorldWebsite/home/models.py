@@ -7,3 +7,7 @@ from django.db import models
 
 class Counter(models.Model):
     count = models.IntegerField(blank=False, default=0)
+
+
+class Graph(models.Model):
+    photo = models.ImageField(upload_to='graphs')
