@@ -21,7 +21,7 @@
 
 </head>
 
-<body onload="getLocation()">
+<body>
   <style>
 
   .blue{
@@ -77,6 +77,15 @@
   display: table;
   clear: both;
 }
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map {
+    height: 100%;
+    width: 100%;
+}
+
   </style>
 
 
@@ -84,41 +93,41 @@
 <div class = row>
   <div class="column left"></div>
   <div class="column middle">
-    <div id="mapid" style="width: 600px; height: 400px;"></div>
+    <div id='map'></div>
 
+	<script>
+		var map = L.map('map').fitWorld();
 
-    <script>
-      var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox/streets-v11'
+    }).addTo(map);
 
+    function onLocationFound(e) {
+      var radius = e.accuracy / 2;
+      L.marker(e.latlng).addTo(map);
+    }
 
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox/streets-v11'
-      }).addTo(mymap);
+    function onLocationError(e) {
+      alert(e.message);
+    }
 
-      mymap.on('click', onMapClick);
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
 
-      
-      function onMapClick(e) {
-        alert("You clicked the map at " + e.latlng);
-      }
+    map.locate({setView: true, maxZoom: 7});
 
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-      }
-      function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + 
-        "<br>Longitude: " + position.coords.longitude;
-      }
+    var popup = L.popup();
 
-    </script>
+    function onMapClick(e) {
+      var marker = L.marker(e.latlng).addTo(mymap);
+    }
+
+    map.on('click', onMapClick);
+	</script>
 
   <table align="center" style="width: 70%;">
     <tr>
