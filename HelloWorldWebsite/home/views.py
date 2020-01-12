@@ -41,20 +41,25 @@ class API(generic.DetailView):
 def getPlanes(latitude, longitude):
     bbox = [latitude - 5, latitude + 5, longitude - 5, longitude + 5]
     s = OpenSkyApi().get_states(bbox=bbox)
-
     result = []
     for plane in s.states:
-    	result.append({
-    	"callsign": plane.callsign.strip(),
-    	"latitude": plane.latitude,
-    	"longitude": plane.longitude,
-    	"heading": plane.heading,
-    	"distance_km": geopy.distance.geodesic((latitude, longitude), (plane.latitude, plane.longitude)).km
-    	})
-
+        result.append({
+        "callsign": plane.callsign.strip(),
+        "latitude": plane.latitude,
+        "longitude": plane.longitude,
+        "heading": plane.heading,
+        "origin": plane.origin_country,
+        "distance_km": geopy.distance.geodesic((latitude, longitude), (plane.latitude, plane.longitude)).km
+        })
     result.sort(key=lambda x: x["distance_km"])
-    dump = json.dumps(result[:3])
+    result = result[:3]
+    result_dict = dict()
+    result_dict["plane0"] = result[0]
+    result_dict["plane1"] = result[1]
+    result_dict["plane2"] = result[2]
+    dump = json.dumps(result_dict)
     return(dump)
+
 
 
 
