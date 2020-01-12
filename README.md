@@ -8,6 +8,7 @@ Uses OpenSky Network API
 # Install
 After downloading the repository, run these commands:
 ```bash
+$ cd HelloWorldWebsite/
 $ source env/bin/activate
 $ python manage.py runserver
 ```
