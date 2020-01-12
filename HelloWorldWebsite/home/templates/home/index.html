@@ -123,7 +123,8 @@ html, body, #map {
     var popup = L.popup();
 
     function onMapClick(e) {
-      var marker = L.marker(e.latlng).addTo(mymap);
+      var marker = L.marker(e.latlng).addTo(map);
+      map.panTo(e.latlng);
     }
 
     map.on('click', onMapClick);
@@ -158,105 +159,3 @@ html, body, #map {
 
 
 </html>
-
-
-<!-- {% load static %}
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, intial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
-</head> -->
-
-<!-- <body> -->
-<!-- 
-  <style>
-  .colour {
-    color: #FF0000;
-    background-color: #000000;
-  }
-  .center{
-    display: block;
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-    border-radius: 10px;
-  }
-  .wrapper .button-css {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #FF0000;
-  }
-
-  .helloworld-text {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .wrapper {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-  }
-  </style>
-
-    
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<form method="POST" name="submit-form">
-  {% csrf_token %}
-  <div class="container section">
-    <img class=center src="{% static 'images/dummy.png' %}"/>
-  </div>
-</form>
-<div class="container section">
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="000.0000" id="min_lat" type="number" class="validate">
-          <label for="min_lat">Minimum Latitude</label>
-        </div>
-        <div class="input-field col s6">
-          <input placeholder="000.0000" id="max_lat" type="number" class="validate">
-          <label for="max_lat">Maximum Latitude</label>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="000.0000" id="min_long" type="number" class="validate">
-          <label for="min_long">Minimum Longitude</label>
-        </div>
-        <div class="input-field col s6">
-          <input placeholder="000.0000" id="max_long" type="number" class="validate">
-          <label for="max_long">Maximum Longitude</label>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-      
-<script>
-  function changeColor(){
-    console.log("here")
-    var button = document.getElementById('button');
-    document.body.classList.toggle('colour')
-  }
-</script> --> 
-<!-- </body> -->
