@@ -16,14 +16,8 @@ class Home(generic.DetailView):
     template_name = "home/index.html"
 
     def get(self, request, *args, **kwargs):
-        lat = float(request.GET["lat"])
-        lon = float(request.GET["lon"])
-        json = getPlanes(lat, lon)
-
-        return HttpResponse(json, content_type='application/json')
-
-        # context = {'our_counter' : Counter.objects.get(pk=1)}
-        # return render(request, self.template_name, context)
+        context = {'our_counter' : Counter.objects.get(pk=1)}
+        return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         counter_object = Counter.objects.get(pk=1)
@@ -32,6 +26,17 @@ class Home(generic.DetailView):
         return redirect('homepage')
 
 
+
+class API(generic.DetailView):
+    #model = Counter
+    #template_name = "home/index.html"
+
+    def get(self, request, *args, **kwargs):
+        lat = float(request.GET["lat"])
+        lon = float(request.GET["lon"])
+        json = getPlanes(lat, lon)
+
+        return HttpResponse(json, content_type='application/json')
 
 def getPlanes(latitude, longitude):
     bbox = [latitude - 5, latitude + 5, longitude - 5, longitude + 5]
